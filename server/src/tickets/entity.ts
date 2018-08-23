@@ -10,13 +10,13 @@ export class Ticket extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column({nullable:true})
+  @Column({nullable:false})
   price: number
 
-  @Column('text',{nullable:true})
+  @Column('text',{nullable:false})
   description: string
 
-  @Column('text',{nullable:true})
+  @Column('text',{nullable:false})
   thumbnail: string
 
   @CreateDateColumn({type: 'timestamp'})

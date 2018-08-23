@@ -23,13 +23,17 @@ class TicketDetails extends PureComponent {
     edit: false,
 }
 
-toggleEdit = () => {
+  toggleEdit = () => {
     this.setState({
         edit: !this.state.edit
     })
-}
+  }
 
-componentDidMount() {
+  goBack() {
+    window.history.back();
+  }
+
+  componentDidMount() {
         this.props.fetchTicket(this.props.match.params.id)
         this.props.fetchComments(this.props.match.params.id)
         this.props.getUsers()
@@ -52,19 +56,20 @@ componentDidMount() {
                 <Toolbar>
                 {this.props.currentAdd &&
                     <Typography variant="title" color="inherit">
-                    
-            {this.props.currentAdd.title}
-            
+                    <Link to={'/'} style={{color: "white", textDecoration: "none"}}>Home</Link>
                     </Typography>
                     }
                     <div style={{width: "87%"}}></div>
                     {!this.props.currentUser &&
                     <Typography variant="title" color="inherit">
-                    
                      <Link to={'/login'} style={{color: "white", textDecoration: "none"}}>Log in</Link>
-            
                     </Typography>
                     }
+              {this.props.currentUser &&
+                  <Typography variant="title" color="inherit">
+                  <Link to={'/logout'} style={{color: "white", textDecoration: "none"}}>logout</Link>
+                  </Typography>
+              } 
                 </Toolbar>
             </AppBar>
             {this.props.currentAdd &&
@@ -75,8 +80,7 @@ componentDidMount() {
             <Grid container spacing={24} 
                 direction={"row"}
                 alignItems={"center"}>
-                
-        {this.props.tickets.length > 0 && this.props.tickets.map(x => {
+            {this.props.tickets.length > 0 && this.props.tickets.map(x => {
             return (
                 <div>     
                 <Grid item lg={10} style={{paddingLeft: '20px', paddingBottom: "30px", paddingTop: '20px'}}>
@@ -100,8 +104,6 @@ componentDidMount() {
                 Edit current ticket
               </Button>
             )}
-                  
-            
                 </Card>
                 </Grid>
               </div>
@@ -110,6 +112,7 @@ componentDidMount() {
               </Grid>
               </div>
             }
+            <Button variant="contained" color="primary" type="submit" onClick={this.goBack}>Go back</Button>
             {this.props.comments.length > 0 && this.props.comments.map(x => {
               return (
                 <div>
@@ -129,7 +132,6 @@ componentDidMount() {
             <EditTicketForm onSubmit={this.handleEditSubmit} />
             }
             <Comments onSubmit={this.handleSubmit} />
-            <Link to={ `/events` }><Button variant="contained" color="primary" style={{textDecoration: "none", marginTop: "20px"}}>Go back to events</Button></Link>
           </div>
         )
       }

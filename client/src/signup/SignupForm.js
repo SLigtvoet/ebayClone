@@ -1,5 +1,12 @@
 import React, {PureComponent} from 'react'
 import './SignupForm.css'
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel'
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import {Link} from 'react-router-dom'
 
 export default class SignupForm extends PureComponent {
 	state = {}
@@ -19,49 +26,58 @@ export default class SignupForm extends PureComponent {
 
 	render() {
 		return (
+			<div>
+			<AppBar position="fixed">
+				<Toolbar>
+					<Typography variant="title" color="inherit">
+					<Link to={'/'} style={{color: "white", textDecoration: "none"}}>Home</Link>
+					</Typography>
+				</Toolbar>
+			</AppBar>
+		
       <div className="signup-form">
   			<form onSubmit={this.handleSubmit}>
-  				<label>
+  				<InputLabel>
             Email
-            <input type="email" name="email" value={
+            <Input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" type="email" name="email" value={
   						this.state.email || ''
   					} onChange={ this.handleChange } />
-          </label>
+          </InputLabel>
 
-					<label>
-            First name
-            <input type="firstName" name="firstName" value={
+					<InputLabel>
+            First Name
+            <Input type="firstName" name="firstName" value={
   						this.state.firstName|| ''
   					} onChange={ this.handleChange } />
-          </label>
+          </InputLabel>
 
-					<label>
+					<InputLabel>
             Last name
-            <input type="lastName" name="lastName" value={
+            <Input type="lastName" name="lastName" value={
   						this.state.lastName || ''
   					} onChange={ this.handleChange } />
-          </label>
+          </InputLabel>
 
-					<label>
+					<InputLabel>
             Telephone number
-            <input type="telephoneNumber" name="telephoneNumber" value={
+            <Input type="telephoneNumber" name="telephoneNumber" value={
   						this.state.telephoneNumber || ''
   					} onChange={ this.handleChange } />
-          </label>
+          </InputLabel>
   					
-  				<label>
+  				<InputLabel>
             Password
-  					<input type="password" name="password" value={
+  					<Input type="password" name="password" value={
   						this.state.password || ''
   					} onChange={ this.handleChange } />
-  				</label>
+  				</InputLabel>
 
-  				<label>
+  				<InputLabel>
             Confirm password
-  					<input type="password" name="confirmPassword" value={
+  					<Input type="password" name="confirmPassword" value={
   						this.state.confirmPassword || ''
   					} onChange={ this.handleChange } />
-  				</label>
+  				</InputLabel>
 
   				{
   					this.state.password &&
@@ -70,9 +86,10 @@ export default class SignupForm extends PureComponent {
   					<p style={{color:'red'}}>The passwords do not match!</p>
   				}
 
-  				<button type="submit">Sign up</button>
+  				<Button variant="contained" color="primary" type="submit">Sign up</Button>
   			</form>
       </div>
+			</div>
 		)
 	}
 }

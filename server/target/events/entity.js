@@ -20,19 +20,19 @@ __decorate([
     __metadata("design:type", Number)
 ], Event.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column('text'),
+    typeorm_1.Column('text', { nullable: false }),
     __metadata("design:type", String)
 ], Event.prototype, "title", void 0);
 __decorate([
-    typeorm_1.Column('text'),
+    typeorm_1.Column('text', { nullable: false }),
     __metadata("design:type", String)
 ], Event.prototype, "pictureUrl", void 0);
 __decorate([
-    typeorm_1.Column('text'),
+    typeorm_1.Column('text', { nullable: false }),
     __metadata("design:type", String)
 ], Event.prototype, "startDate", void 0);
 __decorate([
-    typeorm_1.Column('text'),
+    typeorm_1.Column('text', { nullable: false }),
     __metadata("design:type", String)
 ], Event.prototype, "startTime", void 0);
 __decorate([

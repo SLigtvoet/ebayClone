@@ -22,6 +22,7 @@ export default class UsersController{
     async createUser(
     @Body() user: User
     ) {
+        console.log(user)
     const {password, ...rest} = user
     const entity = User.create(rest)
     await entity.setPassword(password)

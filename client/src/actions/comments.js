@@ -1,6 +1,7 @@
 import * as request from 'superagent'
 import {logout} from './users'
 import {isExpired} from '../jwt'
+
 const baseUrl = 'http://localhost:4001'
 
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'

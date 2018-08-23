@@ -32,6 +32,7 @@ let UsersController = class UsersController {
         return users;
     }
     async createUser(user) {
+        console.log(user);
         const { password } = user, rest = __rest(user, ["password"]);
         const entity = entity_1.User.create(rest);
         await entity.setPassword(password);

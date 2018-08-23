@@ -42,15 +42,9 @@ class EventList extends PureComponent {
 
   componentDidUpdate(){
     this.emptyArray = []
-    console.log(this.props, "hallo")
-
   }
 
   paginationStarter = events => {
-    // for (let i = 0; i < events.length; i++) {
-    //   this.emptyArray.push(events.slice(i, i+4))
-    //   }      
-    
     if (events.length > 4){
       this.emptyArray.push(events.slice(0, 4))
       this.paginationStarter(events.slice(4))
@@ -71,14 +65,23 @@ class EventList extends PureComponent {
    })
   }
 
+  filterEvents = events => {
+	 return events.filter(event => {
+      const endDate = new Date(event.startDate)
+      console.log(endDate, "this is enddate")
+      const now = new Date()
+      console.log(now, "this is now")
+
+      if(now < endDate) return event
+      console.log(event, "final event")
+	  })
+  }
+
   render() {
-    this.paginationStarter(this.props.events)
-    console.log(this.props.currentUser)
-    console.log(this.props.users)
-    
+    this.paginationStarter(this.filterEvents(this.props.events))
     return (
       <div>
-             <AppBar position="static">
+             <AppBar position="fixed">
         <Toolbar>
           <Typography variant="title" color="inherit">
             All events
@@ -102,19 +105,30 @@ class EventList extends PureComponent {
           } 
         </Toolbar>
       </AppBar>
-      <div className="homepageImage" style={{height: "1151px"}}>
+      <div className="container" style={{position: "relative"}}>
+        <div className="homepageImage" style={{height: "1151px"}}>
+          <h1 style={{position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%",
+                    fontSize: "150px",
+                    color: "white",
+                    opacity: "0.9"
+                    }}>Welcome!</h1>
+                    
+        </div>
       </div>
-      <h1 style={{marginLeft: "20px", textAlign: "center"}}>Upcoming events</h1>       
+         <h1 style={{marginLeft: "20px", textAlign: "center"}}>Upcoming events</h1>       
 
         <Grid container spacing={24} 
                 direction={"row"}
                 alignItems={"center"}>
                 
-        {this.props.events.length > 0 && this.emptyArray[this.state.index].map(x => {
+            {this.props.events.length > 0 && this.emptyArray[this.state.index].map(x => {
             return (
                 <div>     
                 <Grid item lg={10} style={{paddingLeft: '20px', paddingBottom: "30px", paddingTop: '20px'}}>
-                <Card style={{width: "100%", height: '400px'}}>
+                <Card style={{width: "100%", height: '500px'}}>
                   <CardMedia>
                    <img src={x.pictureUrl} style={{width: '345px', height: '200px'}}/>
                  </CardMedia >
@@ -122,11 +136,11 @@ class EventList extends PureComponent {
                     <Typography gutterBottom variant="headline" component="h2">
                       {x.title}
                     </Typography>
-                    <Typography gutterBottom variant="headline" component="h2">
-                      {x.startDate}
+                    <Typography gutterBottom variant="headline" component="h6">
+                      Start date: {x.startDate}
                     </Typography>
-                    <Typography gutterBottom variant="headline" component="h2">
-                      {x.startTime}
+                    <Typography gutterBottom variant="headline" component="h6">
+                      Start time: {x.startTime}
                     </Typography>
                   </CardContent>
                   <CardActions>
@@ -136,20 +150,20 @@ class EventList extends PureComponent {
                   </CardActions>
                 </Card>
                 </Grid>
-                
               </div>
         )} )  }
-        {this.state.index !== 0 &&
-              <Button onClick={this.backward} size="small" color="primary">Previous</Button>
-        }
-        {this.state.index < this.emptyArray.length -1 &&
-              <Button onClick={this.foreward} size="small" color="primary">Next</Button>
-        }
+        
         
               </Grid>
-        {this.props.currentUser &&
-        <EventForm onSubmit={this.createEvent} />
-        }
+                  {   this.state.index !== 0 &&
+                      <Button variant="contained" color="primary" onClick={this.backward} size="small" color="primary">Previous</Button>
+                   }
+                  {   this.state.index < this.emptyArray.length -1 &&
+                      <Button variant="contained" color="primary" onClick={this.foreward} size="small" color="primary">Next</Button>
+                  }
+                      {this.props.currentUser &&
+                      <EventForm onSubmit={this.createEvent} />
+                  }
       </div>
     )
   }

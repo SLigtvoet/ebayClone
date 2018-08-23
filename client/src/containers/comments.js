@@ -1,5 +1,7 @@
 import React, {PureComponent} from 'react'
 import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel'
 
 export class Comments extends PureComponent {
 	state = {}
@@ -26,8 +28,8 @@ export class Comments extends PureComponent {
 			<div>
 			<form onSubmit={this.handleSubmit} style={{marginTop: "200px"}}>
 				<div>
-					<label htmlFor="comment">Your comment</label>
-					<input name="comment" id="comment" value={
+					<InputLabel htmlFor="comment">Your comment</InputLabel>
+					<Input pattern="[A-Za-z]{3}" name="comment" id="comment" value={
 						this.state.comment !== undefined ? this.state.comment : initialValues.comment
 					} onChange={ this.handleChange } />
 				</div>

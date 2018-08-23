@@ -11,7 +11,7 @@ export default class Comment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('text',{nullable:true})
+  @Column('text',{nullable:false})
   comment: string
 
   @CreateDateColumn({type: 'timestamp'})

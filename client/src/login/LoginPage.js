@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {login} from '../actions/users'
 import LoginForm from './LoginForm'
 import {Redirect} from 'react-router-dom'
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -23,15 +22,12 @@ class LoginPage extends PureComponent {
 		return (
 			<div>
 				 <AppBar position="static">
-        <Toolbar>
-          <Typography variant="title" color="inherit">
-            All events
-          </Typography>
-          <Typography variant="title" color="inherit">
-          <Link to={'/'} style={{color: "white", textDecoration: "none"}}>home</Link>
-          </Typography>   
-        </Toolbar>
-      </AppBar>
+       		 <Toolbar>
+						<Typography variant="title" color="inherit">
+						<Link to={'/'} style={{color: "white", textDecoration: "none"}}>home</Link>
+						</Typography>   
+					</Toolbar>
+				</AppBar>
 				<h1>Login</h1>
 
 				<LoginForm onSubmit={this.handleSubmit} />

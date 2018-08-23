@@ -20,7 +20,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Comment.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column('text', { nullable: true }),
+    typeorm_1.Column('text', { nullable: false }),
     __metadata("design:type", String)
 ], Comment.prototype, "comment", void 0);
 __decorate([

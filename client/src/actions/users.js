@@ -1,6 +1,7 @@
 import * as request from 'superagent'
-import {isExpired} from '../jwt'
+
 const baseUrl = 'http://localhost:4001'
+
 export const ADD_USER = 'ADD_USER'
 export const UPDATE_USER = 'UPDATE_USER'
 export const UPDATE_USERS = 'UPDATE_USERS'
@@ -72,20 +73,10 @@ export const signup = (email, firstName, lastName, telephoneNumber, password) =>
 		})
 
     export const getUsers = () => dispatch => {
-      // const state = getState()
-      // console.log(state)
-      // if (!state.currentUser) return null
-      // const jwt = state.currentUser.jwt
-    
-      // if (isExpired(jwt)) return dispatch(logout())
-    
       request
         .get(`${baseUrl}/users`)
-        // .set("Authorization", `Bearer ${jwt}`)
-        
         .then(result => {
         dispatch(updateUsers(result.body))
-
         })
         .catch(err => console.error(err))
     }

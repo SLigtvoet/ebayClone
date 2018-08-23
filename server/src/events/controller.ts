@@ -28,8 +28,6 @@ export default class EventsController{
     ){
         const entity = await Event.create(event)
         entity.user = user
-        console.log(entity)
-        console.log(user)
         const addedEvent = await entity.save()
         return addedEvent
 
@@ -42,7 +40,6 @@ export default class EventsController{
         @Param('id') id: number,
         @Body() update : Partial<Event>
     ) {
-
         const event = await Event.findOne(id)
         if(!event) throw new NotFoundError('Event not found!')
         

@@ -9,16 +9,16 @@ export default class Event extends BaseEntity{
     @PrimaryGeneratedColumn()
     id?: number
 
-    @Column('text')
+    @Column('text',{nullable:false})
     title: string
 
-    @Column('text')
+    @Column('text',{nullable:false})
     pictureUrl: string
 
-    @Column('text')
+    @Column('text',{nullable:false})
     startDate: string
 
-    @Column('text')
+    @Column('text',{nullable:false})
     startTime: string
 
     @ManyToOne(_ => User, user => user.events, {eager: true})

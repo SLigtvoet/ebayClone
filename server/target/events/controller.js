@@ -26,8 +26,6 @@ let EventsController = class EventsController {
     async createEvent(event, user) {
         const entity = await entity_1.default.create(event);
         entity.user = user;
-        console.log(entity);
-        console.log(user);
         const addedEvent = await entity.save();
         return addedEvent;
     }
