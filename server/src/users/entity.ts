@@ -1,42 +1,52 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import * as bcrypt from 'bcrypt'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 import { BaseEntity } from 'typeorm/repository/BaseEntity'
-import { IsString, MinLength, IsEmail, IsMobilePhone, IsBoolean } from 'class-validator';
-
+import { Exclude } from 'class-transformer'
+import Event from '../events/entity';
+import {Ticket} from '../tickets/entity'
+import Comment from '../comments/entity'
 
 @Entity()
-export default class Users extends BaseEntity{
+export class User extends BaseEntity{
+
+    async setPassword(rawPassword: string) {
+        const hash = await bcrypt.hash(rawPassword, 10)
+        this.password = hash
+        }
+    
+        checkPassword(rawPassword: string): Promise<boolean> {
+        return bcrypt.compare(rawPassword, this.password)
+        }
 
     @PrimaryGeneratedColumn()
     id?: number
 
-    @IsString()
-    @MinLength(2)
     @Column('text', {nullable:false})
     firstName: string
 
-    @IsString()
-    @MinLength(2)
     @Column('text', {nullable:false})
     lastName: string
 
-    @IsEmail()
     @Column('text', {nullable:false})
     email: string
 
-    @IsMobilePhone('en-NL')
     @Column('text', {nullable:false})
     telephoneNumber: string
 
-    @IsString()
-    @MinLength(2)
-    @Column('text', {nullable:false})
-    city: string
+    @Column('text', { nullable:true })
+    @Exclude({toPlainOnly:true})
+    password: string
 
-    @IsBoolean()
-    @Column('text')
-    isAdmin: boolean
+    @Column({default: 0})
+    ticketCounter: number
 
-    @Column('text', {nullable:true})
-    adds: number[]
+    @OneToMany(_ => Event, event => event.user)
+    events: Event[]
+  
+    @OneToMany(_ => Ticket, ticket => ticket.user)
+    ticket: Ticket[]
+
+    @OneToMany(_ => Comment, comment => comment.user)
+    comments: Comment[]
 
 }

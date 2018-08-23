@@ -1,4 +1,9 @@
 .App {
   text-align: center;
+  margin: 0;
 }
 
+.homepageImage{
+  background-image: url("https://festivaloverzichtamsterdam.nl/wp-content/uploads/2017/09/27993089_1656737331050429_385463849653698757_o.jpg");
+  width: 100%;
+}

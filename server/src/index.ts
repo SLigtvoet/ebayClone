@@ -2,15 +2,47 @@ import 'reflect-metadata'
 import {createKoaServer} from "routing-controllers"
 import setupDb from './db'
 import UsersController from './users/controller'
-import AddsController from './adds/controller';
+import EventsController from './events/controller';
+import {Action} from 'routing-controllers'
+import { verify } from './jwt'
+import LoginController from './logins/controller';
+import TicketsController from './tickets/controller';
+import {User} from './users/entity';
+import CommentsController from './comments/controller';
 const cors = require("@koa/cors")
 
 
 const app = createKoaServer({
    controllers: [
     UsersController,
-    AddsController   
-  ]
+    EventsController,
+    LoginController,
+    TicketsController,
+    CommentsController
+  ],
+  authorizationChecker: (action: Action) => {
+    const header: string = action.request.headers.authorization
+  
+    if (header && header.startsWith('Bearer ')) {
+      const [ , token ] = header.split(' ')
+      return !!(token && verify(token))
+    }
+    return false
+  },
+  
+  currentUserChecker: async (action: Action) => {
+    const header: string = action.request.headers.authorization
+    if (header && header.startsWith("Bearer ")) {
+      const [, token] = header.split(" ")
+
+      if (token) {
+        const { id } = verify(token)
+        return User.findOne(id)
+      }
+    }
+    return undefined
+  }
+
 })
 
 setupDb()

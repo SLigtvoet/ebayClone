@@ -14,41 +14,41 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const routing_controllers_1 = require("routing-controllers");
 const entity_1 = require("./entity");
-let AddsController = class AddsController {
+let EventsController = class EventsController {
     getSeller(id) {
         return entity_1.default.findOne(id);
     }
     async getAdds() {
-        const adds = await entity_1.default.find();
-        return { adds };
+        const events = await entity_1.default.find();
+        return { events };
     }
-    createAdd(add) {
-        return add.save();
+    createAdd(event) {
+        return event.save();
     }
 };
 __decorate([
-    routing_controllers_1.Get('/adds/:id'),
+    routing_controllers_1.Get('/events/:id'),
     __param(0, routing_controllers_1.Param('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
-], AddsController.prototype, "getSeller", null);
+], EventsController.prototype, "getSeller", null);
 __decorate([
-    routing_controllers_1.Get('/adds'),
+    routing_controllers_1.Get('/events'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], AddsController.prototype, "getAdds", null);
+], EventsController.prototype, "getAdds", null);
 __decorate([
-    routing_controllers_1.Post('/adds'),
+    routing_controllers_1.Post('/events'),
     routing_controllers_1.HttpCode(201),
     __param(0, routing_controllers_1.Body()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [entity_1.default]),
     __metadata("design:returntype", void 0)
-], AddsController.prototype, "createAdd", null);
-AddsController = __decorate([
+], EventsController.prototype, "createAdd", null);
+EventsController = __decorate([
     routing_controllers_1.JsonController()
-], AddsController);
-exports.default = AddsController;
+], EventsController);
+exports.default = EventsController;
 //# sourceMappingURL=controller.js.map

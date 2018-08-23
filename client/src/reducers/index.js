@@ -1,8 +1,20 @@
 import { combineReducers } from 'redux'
-import addss from './adds'
+import events from './events'
 import currentAdd from './add'
+import login from './login'
+import signup from './signup'
+import users from './users'
+import currentUser from './currentUser'
+import tickets from './tickets'
+import comments from './comments'
 
 export default combineReducers({
-    addss,
-    currentAdd
+    events,
+    currentAdd,
+    login,
+    signup,
+    users,
+    currentUser,
+    tickets,
+    comments
 })

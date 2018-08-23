@@ -1,20 +1,30 @@
-import { JsonController, Get, Param } from 'routing-controllers'
-import Users from './entity';
+import { JsonController, Get, Param, Post, Body } from 'routing-controllers'
+import {User} from './entity';
 
 
 @JsonController()
 export default class UsersController{
 
     @Get('/users/:id')
-    getSeller(
+    getUser(
         @Param('id') id: number
     ) {
-        return Users.findOne(id)
+        return User.findOne(id)
     }
 
     @Get('/users')
     async getUsers(){
-    const users = await Users.find()
-    return { users }
+    const users = await User.find()
+    return users 
+    }
+
+    @Post('/users')
+    async createUser(
+    @Body() user: User
+    ) {
+    const {password, ...rest} = user
+    const entity = User.create(rest)
+    await entity.setPassword(password)
+    return entity.save()
     }
 }
